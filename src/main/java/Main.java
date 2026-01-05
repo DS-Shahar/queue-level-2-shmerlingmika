@@ -246,5 +246,93 @@ public class Main {
 	    }
 	    return sum;
     }
+
+	public static Queue<Integer> ex(Queue<Integer> q) {
+	    Queue<Integer> h = new Queue<Integer>();
+	    Queue<Integer> p = new Queue<Integer>();
+	     while (!q.isEmpty())
+	     {
+	         p.insert(q.head());
+	         h.insert(q.remove());
+	     }
+	     while (!p.isEmpty())
+	     {
+	         q.insert(p.remove());
+	     }
+	     return h;
+	}
+	
+	public static int max(Queue<Integer> p) 
+	{
+	    Queue<Integer> q = ex(p);
+	    int max = q.remove();
+	    int current;
+	    while (!q.isEmpty())
+	    {
+	        current = q.remove();
+	        
+	        if (current>max)
+	            max = current;
+	    }
+	    return max;
+    }
+    
+    public static int dig(int num) 
+    {
+	    int digit = 0;
+	    while (num!=0)
+	    {
+	        digit++;
+	        num = num/10;
+	    }
+	    return digit;
+    }
+    
+    public static int loc(int num,int x) 
+    {
+        if (dig(num)<x)
+            return 0;
+            
+        int digit = 0;
+            
+	    while (x!=-1)
+	    {
+	        x--;
+	        digit = num%10;
+	        num = num/10;
+	    }
+	    return digit;
+    }
+    
+    public static Queue<Integer> sort(Queue<Integer> q) 
+    {
+        Queue<Integer>[]a = new Queue [10];
+        for (int i = 0; i< 10; i++){
+            a[i] = new Queue<Integer>();
+        }
+            
+        int x = dig(max(q));
+        int num;
+        
+        for (int i = 0; i< x;i++)
+        {
+            while (!q.isEmpty())
+	        {
+	            num = q.remove();
+	            a[loc(num,i)].insert(num);
+	        }
+	        
+	        for (int j = 0; j< 10;j++)
+            {
+                while (!a[j].isEmpty())
+	            {
+	                q.insert(a[j].remove());
+	            }
+            }
+        }
+            
+        return q;    
+        
+    }
 	
 }
