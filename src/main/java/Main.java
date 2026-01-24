@@ -336,3 +336,94 @@ public class Main {
     }
 	
 }
+/////////////////////////////////////עצים בינארים/////////////////////////////////////////
+import java.util.*;
+public class Main {	
+	
+	static Scanner reader=new Scanner(System.in);
+	public static void main(String[] args) {
+	    
+	    BinNode root = new BinNode(8);
+        root.setLeft(new BinNode(4));
+        root.setRight(new BinNode(10));
+        root.getLeft().setLeft(new BinNode(2));
+        root.getLeft().setRight(new BinNode(6));
+        System.out.println(root);
+        //ex11a(root);
+        //System.out.println(ex11b(root));
+        //System.out.println(ex11c(root));
+        System.out.println(ex11d(root));
+
+	}
+
+	
+	public static void ex11a(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return;
+            
+        boolean even = root.getValue() % 2 == 0;
+        boolean leftOk = !root.hasLeft() || root.getLeft().getValue() % 2 == 0;
+        boolean rightOk = !root.hasRight() || root.getRight().getValue() % 2 == 0;
+        
+        if (even && leftOk && rightOk)
+            System.out.println(root.getValue());
+            
+        ex11a(root.getLeft());
+        ex11a(root.getRight());
+    }
+    
+    public static int ex11b(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return 0;
+            
+        boolean even = root.getValue() % 2 == 0;
+        boolean leftOk = !root.hasLeft() || root.getLeft().getValue() % 2 == 0;
+        boolean rightOk = !root.hasRight() || root.getRight().getValue() % 2 == 0;
+        
+        if (even && leftOk && rightOk)
+            return ex11b(root.getLeft()) + ex11b(root.getRight()) + 1;
+        else    
+            return ex11b(root.getLeft()) + ex11b(root.getRight());
+    }
+    
+    public static boolean ex11c(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return false;
+            
+        boolean even = root.getValue() % 2 == 0;
+        boolean leftOk = !root.hasLeft() || root.getLeft().getValue() % 2 == 0;
+        boolean rightOk = !root.hasRight() || root.getRight().getValue() % 2 == 0;
+        
+        if (even && leftOk && rightOk)
+            return true;
+            
+        if (ex11c(root.getLeft()) || ex11c(root.getRight()))
+            return true;
+        else    
+            return false;
+    }
+    
+    public static boolean ex11d(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return true;
+            
+        boolean even = root.getValue() % 2 == 0;
+        boolean leftOk = !root.hasLeft() || root.getLeft().getValue() % 2 == 0;
+        boolean rightOk = !root.hasRight() || root.getRight().getValue() % 2 == 0;
+        
+        if (!(even && leftOk && rightOk))
+            return false;
+            
+        if (!(ex11d(root.getLeft()) || ex11d(root.getRight())))
+            return false;
+        else    
+            return true;
+    }
+
+	
+
+}
