@@ -352,7 +352,11 @@ public class Main {
         //ex11a(root);
         //System.out.println(ex11b(root));
         //System.out.println(ex11c(root));
-        System.out.println(ex11d(root));
+        //System.out.println(ex11d(root));
+        //System.out.println(ex12(root));
+        //System.out.println(ex14(root));
+        //System.out.println(ex16(root));
+        System.out.println(ex17(root));
 
 	}
 
@@ -422,6 +426,55 @@ public class Main {
             return false;
         else    
             return true;
+    }
+
+	public static int ex12(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return 0;
+        
+        if (root.getValue()>=10 && root.getValue()<100)
+            return ex12(root.getLeft()) + ex12(root.getRight()) + 1;
+        else    
+            return ex12(root.getLeft()) + ex12(root.getRight());
+    }
+    
+    public static int ex14(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return 0;
+        
+        if (!(root.hasRight() || root.hasLeft()))
+            return ex14(root.getLeft()) + ex14(root.getRight()) + 1;
+        else    
+            return ex14(root.getLeft()) + ex14(root.getRight());
+    }
+    
+    public static int ex16(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return 0;
+        
+        if (root.hasRight() && root.hasLeft())
+            return ex16(root.getLeft()) + ex16(root.getRight()) + root.getValue();
+        else    
+            return ex16(root.getLeft()) + ex16(root.getRight());
+    }
+    
+    public static int ex17(BinNode<Integer> root) 
+	{
+        if (root == null)
+            return 0;
+        
+        if (root.hasRight() && root.hasLeft())
+        {
+            if ((root.getRight().hasRight() || root.getRight().hasLeft()) && (root.getLeft().hasRight() || root.getLeft().hasLeft()))
+                return ex17(root.getLeft()) + ex17(root.getRight()) + 1;
+            else
+                return ex17(root.getLeft()) + ex17(root.getRight());
+        }
+        else    
+            return ex17(root.getLeft()) + ex17(root.getRight());
     }
 
 	
