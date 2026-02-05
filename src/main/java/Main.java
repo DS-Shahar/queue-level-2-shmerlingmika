@@ -368,6 +368,27 @@ public class Main {
         //System.out.println(ex18(root,root2));
         System.out.println(ex20(root,4));
 
+		BinNode<Range> t = new BinNode<>(new Range(1, 10));
+        BinNode<Range> leftChild = new BinNode<>(new Range(1, 4));
+        BinNode<Range> rightChild = new BinNode<>(new Range(5, 10));
+
+        // חיבור בין הצמתים
+        t.setLeft(leftChild);
+        t.setRight(rightChild);
+
+        // יצירת צמתים נוספים
+        BinNode<Range> leftLeftChild = new BinNode<>(new Range(1, 1));
+        leftChild.setLeft(leftLeftChild);
+
+        BinNode<Range> rightLeftChild = new BinNode<>(new Range(5, 6));
+        rightChild.setLeft(rightLeftChild);
+        
+        BinNode<Range> rightRightChild = new BinNode<>(new Range(8, 10));
+        rightChild.setRight(rightRightChild);
+
+        // קריאה לפונקציה ex6 על העץ
+        System.out.println(order(t));
+
 	}
 
 	
@@ -565,6 +586,26 @@ public class Main {
         }
         
         return ex20(t1,num-1);
+    }
+
+	public static boolean order(BinNode<Range> t) 
+	{
+        if (t == null)
+            return true;
+        
+        if (t.hasLeft())
+            if (!(t.getValue().getLow() == t.getLeft().getValue().getLow() && t.getValue().getHigh() >= t.getLeft().getValue().getHigh()))
+                return false;
+                
+        if (t.hasRight())
+            if (!(t.getValue().getLow() <= t.getRight().getValue().getLow() && t.getValue().getHigh() == t.getRight().getValue().getHigh()))
+                return false;
+                
+        if (t.hasRight() && t.hasLeft())
+            if (!(t.getLeft().getValue().getHigh() < t.getRight().getValue().getLow()))
+                return false;
+        
+        return order(t.getRight()) && order(t.getLeft());
     }
     
     
